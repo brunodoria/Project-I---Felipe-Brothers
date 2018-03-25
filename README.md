@@ -8,11 +8,17 @@ Fuja de todos os I's e tome muito cuidado com os D's; aqui não existe segunda �
 Nunca caia em trancamento ou desligamento, você perderá o jogo :(
 
 CONTROLES:
+
 setas -> movimentação
+
 a -> pular
+
 s -> correr/lançar poder
 
 POWER UPs:
+
 Ganhe um MB para aumentar a confiança e crescer literalmente.
+
 Um L aumenta seu poder de fogo contra as notas baixas.
+
 Se for um summa cum laude (SCL) será indestrutível.
