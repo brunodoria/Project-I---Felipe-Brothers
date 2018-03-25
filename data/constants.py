@@ -41,8 +41,8 @@ SMALL_TURNAROUND = .35
 
 GRAVITY = 1.01
 JUMP_GRAVITY = .31
-JUMP_VEL = -10
-FAST_JUMP_VEL = -12.5
+JUMP_VEL = -12
+FAST_JUMP_VEL = -15
 MAX_Y_VEL = 11
 
 MAX_RUN_SPEED = 800
@@ -139,6 +139,7 @@ PLAYER2 = '2 player'
 #OVERHEAD INFO STATES
 MAIN_MENU = 'main menu'
 LOAD_SCREEN = 'loading screen'
+LOAD_SCREEN2 = 'loading screen2'
 LEVEL = 'level'
 GAME_OVER = 'game over'
 FAST_COUNT_DOWN = 'fast count down'
@@ -158,9 +159,11 @@ MARIO_DEAD = 'mario dead'
 #STATES FOR ENTIRE GAME
 MAIN_MENU = 'main menu'
 LOAD_SCREEN = 'load screen'
+LOAD_SCREEN2 = 'loading screen2'
 TIME_OUT = 'time out'
 GAME_OVER = 'game over'
 LEVEL1 = 'level1'
+LEVEL2 = 'level2'
 
 #SOUND STATEZ
 NORMAL = 'normal'

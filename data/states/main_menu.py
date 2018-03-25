@@ -12,7 +12,7 @@ class Menu(tools._State):
         tools._State.__init__(self)
         persist = {c.COIN_TOTAL: 0,
                    c.SCORE: 0,
-                   c.LIVES: 3,
+                   c.LIVES: 5,
                    c.TOP_SCORE: 0,
                    c.CURRENT_TIME: 0.0,
                    c.LEVEL_STATE: None,
@@ -114,19 +114,24 @@ class Menu(tools._State):
             for input in input_list:
                 if keys[input]:
                     self.reset_game_info()
-                    self.done = True
+		    self.level = 1
+                    self.done = True	
         elif self.cursor.state == c.PLAYER2:
             self.cursor.rect.y = 363
             if keys[pg.K_UP]:
                 self.cursor.state = c.PLAYER1
-
+            for input in input_list:
+                if keys[input]:
+                    self.reset_game_info()
+		    self.level = 2
+                    self.done = True
 
 
     def reset_game_info(self):
         """Resets the game info in case of a Game Over and restart"""
         self.game_info[c.COIN_TOTAL] = 0
         self.game_info[c.SCORE] = 0
-        self.game_info[c.LIVES] = 3
+        self.game_info[c.LIVES] = 5
         self.game_info[c.CURRENT_TIME] = 0.0
         self.game_info[c.LEVEL_STATE] = None
 

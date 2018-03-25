@@ -18,6 +18,7 @@ class Control(object):
     def __init__(self, caption):
         self.screen = pg.display.get_surface()
         self.done = False
+	self.level = 2
         self.clock = pg.time.Clock()
         self.caption = caption
         self.fps = 60
@@ -86,6 +87,7 @@ class _State(object):
         self.start_time = 0.0
         self.current_time = 0.0
         self.done = False
+	self.level = 2
         self.quit = False
         self.next = None
         self.previous = None

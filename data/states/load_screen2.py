@@ -6,7 +6,7 @@ from .. import game_sound
 from ..components import info
 
 
-class LoadScreen(tools._State):
+class LoadScreen2(tools._State):
     def __init__(self):
         tools._State.__init__(self)
 
@@ -24,14 +24,11 @@ class LoadScreen(tools._State):
 
     def set_next_state(self):
         """Sets the next state"""
-        if self.level == 1:
-            return c.LEVEL1
-	elif self.level == 2:
-            return c.LEVEL2
+        return c.LEVEL2
 
     def set_overhead_info_state(self):
         """sets the state to send to the overhead info object"""
-        return c.LOAD_SCREEN
+        return c.LOAD_SCREEN2
 
 
     def update(self, surface, keys, current_time):
@@ -93,7 +90,7 @@ class TimeOut(LoadScreen):
         if self.persist[c.LIVES] == 0:
             return c.GAME_OVER
         else:
-            return c.LOAD_SCREEN
+            return c.LOAD_SCREEN2
 
     def set_overhead_info_state(self):
         """Sets the state to send to the overhead info object"""
