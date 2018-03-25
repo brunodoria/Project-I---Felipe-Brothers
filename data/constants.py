@@ -161,6 +161,7 @@ LOAD_SCREEN = 'load screen'
 TIME_OUT = 'time out'
 GAME_OVER = 'game over'
 LEVEL1 = 'level1'
+LEVEL2 = 'level2'
 
 #SOUND STATEZ
 NORMAL = 'normal'
