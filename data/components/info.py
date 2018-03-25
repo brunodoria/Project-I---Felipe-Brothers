@@ -225,7 +225,7 @@ class OverheadInfo(object):
         self.create_label(top, 'TOP - ', 290, 465)
         self.create_label(top_score, '000000', 400, 465)
 
-        self.main_menu_labels = [player_one_game, player_two_game, player_more_enemies,
+        self.main_menu_labels = [player_one_game, player_two_game,
                                  top, top_score]
 
 

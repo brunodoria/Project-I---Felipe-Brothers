@@ -17,7 +17,11 @@ from .. components import score
 from .. components import castle_flag
 
 
+<<<<<<< HEAD
 class Level2(tools._State):
+=======
+class Level1(tools._State):
+>>>>>>> c9a943accffe4191ef884967ef17c605451beedb
     def __init__(self):
         tools._State.__init__(self)
 
@@ -55,7 +59,11 @@ class Level2(tools._State):
     def setup_background(self):
         """Sets the background image, rect and scales it to the correct
         proportions"""
+<<<<<<< HEAD
         self.background = setup.GFX['level_2']
+=======
+        self.background = setup.GFX['level_1']
+>>>>>>> c9a943accffe4191ef884967ef17c605451beedb
         self.back_rect = self.background.get_rect()
         self.background = pg.transform.scale(self.background,
                                   (int(self.back_rect.width*c.BACKGROUND_MULTIPLER),
@@ -73,18 +81,29 @@ class Level2(tools._State):
     def setup_ground(self):
         """Creates collideable, invisible rectangles over top of the ground for
         sprites to walk on"""
+<<<<<<< HEAD
         ground_rect1 = collider.Collider(0, c.GROUND_HEIGHT,    953, 60)
 	ground_rect2 = collider.Collider(1048, c.GROUND_HEIGHT, 2953, 60)
         ground_rect3 = collider.Collider(3048, c.GROUND_HEIGHT,  635, 60)
         ground_rect4 = collider.Collider(3819, c.GROUND_HEIGHT, 2735, 60)
         ground_rect5 = collider.Collider(6647, c.GROUND_HEIGHT, 2300, 60)
 
+=======
+        ground_rect1 = collider.Collider(0, c.GROUND_HEIGHT,    2953, 60)
+        ground_rect2 = collider.Collider(3048, c.GROUND_HEIGHT,  635, 60)
+        ground_rect3 = collider.Collider(3819, c.GROUND_HEIGHT, 2735, 60)
+        ground_rect4 = collider.Collider(6647, c.GROUND_HEIGHT, 2300, 60)
+>>>>>>> c9a943accffe4191ef884967ef17c605451beedb
 
         self.ground_group = pg.sprite.Group(ground_rect1,
                                            ground_rect2,
                                            ground_rect3,
+<<<<<<< HEAD
                                            ground_rect4,
 					   ground_rect5)
+=======
+                                           ground_rect4)
+>>>>>>> c9a943accffe4191ef884967ef17c605451beedb
 
 
     def setup_pipes(self):
@@ -177,9 +196,15 @@ class Level2(tools._State):
         brick14 = bricks.Brick(3901, 193)
         brick15 = bricks.Brick(3944, 193)
         brick16 = bricks.Brick(3987, 193)
+<<<<<<< HEAD
         brick17 = bricks.Brick(4030, 365)
         brick18 = bricks.Brick(4287, 365)
         brick19 = bricks.Brick(4330, 365)
+=======
+        brick17 = bricks.Brick(4030, 365, c.SIXCOINS, self.coin_group)
+        brick18 = bricks.Brick(4287, 365)
+        brick19 = bricks.Brick(4330, 365, c.STAR, self.powerup_group)
+>>>>>>> c9a943accffe4191ef884967ef17c605451beedb
         brick20 = bricks.Brick(5058, 365)
         brick21 = bricks.Brick(5187, 193)
         brick22 = bricks.Brick(5230, 193)
@@ -213,6 +238,7 @@ class Level2(tools._State):
 
     def setup_coin_boxes(self):
         """Creates all the coin boxes and puts them in a sprite group"""
+<<<<<<< HEAD
         coin_box1  = coin_box.Coin_box(685, 365, c.MUSHROOM, self.powerup_group)
         coin_box2  = coin_box.Coin_box(901, 365, c.MUSHROOM, self.powerup_group)
         coin_box3  = coin_box.Coin_box(987, 365, c.COIN, self.coin_group)
@@ -222,6 +248,17 @@ class Level2(tools._State):
         coin_box7  = coin_box.Coin_box(4544, 365, c.COIN, self.coin_group)
         coin_box8  = coin_box.Coin_box(4672, 365, c.COIN, self.coin_group)
         coin_box9  = coin_box.Coin_box(4672, 193, c.COIN, self.coin_group)
+=======
+        coin_box1  = coin_box.Coin_box(685, 365, c.COIN, self.coin_group)
+        coin_box2  = coin_box.Coin_box(901, 365, c.MUSHROOM, self.powerup_group)
+        coin_box3  = coin_box.Coin_box(987, 365, c.COIN, self.coin_group)
+        coin_box4  = coin_box.Coin_box(943, 193, c.COIN, self.coin_group)
+        coin_box5  = coin_box.Coin_box(3342, 365, c.MUSHROOM, self.powerup_group)
+        coin_box6  = coin_box.Coin_box(4030, 193, c.COIN, self.coin_group)
+        coin_box7  = coin_box.Coin_box(4544, 365, c.COIN, self.coin_group)
+        coin_box8  = coin_box.Coin_box(4672, 365, c.COIN, self.coin_group)
+        coin_box9  = coin_box.Coin_box(4672, 193, c.MUSHROOM, self.powerup_group)
+>>>>>>> c9a943accffe4191ef884967ef17c605451beedb
         coin_box10 = coin_box.Coin_box(4800, 365, c.COIN, self.coin_group)
         coin_box11 = coin_box.Coin_box(5531, 193, c.COIN, self.coin_group)
         coin_box12 = coin_box.Coin_box(7288, 365, c.COIN, self.coin_group)
