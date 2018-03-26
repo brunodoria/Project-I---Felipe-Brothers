@@ -12,13 +12,9 @@ def main():
                   c.LOAD_SCREEN: load_screen.LoadScreen(),
                   c.TIME_OUT: load_screen.TimeOut(),
                   c.GAME_OVER: load_screen.GameOver(),
-<<<<<<< HEAD
                   c.LEVEL1: level1.Level1(),
                   c.LEVEL2: level2.Level2()}
-=======
-                  c.LEVEL1: level1.Level1()}
-                  #c.LEVEL2: level1.Level2()}
->>>>>>> c9a943accffe4191ef884967ef17c605451beedb
+
 
     run_it.setup_states(state_dict, c.MAIN_MENU)
     run_it.main()

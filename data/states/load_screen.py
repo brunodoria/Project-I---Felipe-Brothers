@@ -26,7 +26,7 @@ class LoadScreen(tools._State):
         """Sets the next state"""
         if self.level == 1:
             return c.LEVEL1
-	elif self.level == 2:
+        elif self.level == 2:
             return c.LEVEL2
 
     def set_overhead_info_state(self):
@@ -108,12 +108,3 @@ class TimeOut(LoadScreen):
             self.overhead_info.draw(surface)
         else:
             self.done = True
-
-
-
-
-
-
-
-
-

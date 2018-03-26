@@ -114,8 +114,8 @@ class Menu(tools._State):
             for input in input_list:
                 if keys[input]:
                     self.reset_game_info()
-		    self.level = 1
-                    self.done = True	
+                    self.level = 1
+                    self.done = True
         elif self.cursor.state == c.PLAYER2:
             self.cursor.rect.y = 363
             if keys[pg.K_UP]:
@@ -123,7 +123,7 @@ class Menu(tools._State):
             for input in input_list:
                 if keys[input]:
                     self.reset_game_info()
-		    self.level = 2
+                    self.level = 2
                     self.done = True
 
 
