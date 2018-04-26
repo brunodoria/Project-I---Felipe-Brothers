@@ -18,13 +18,13 @@ POWER UPs:
 
 Ganhe um MB para aumentar a confiança e crescer literalmente.
 
-Para jogar basta copiar o diretório para seu computador com o comando
+Para jogar basta copiar o diretório para seu computador com o comando:
 
       git clone https://github.com/brunodoria/Project-I---Felipe-Brothers.git
 
 Ou então, fazer o download do .zip e extrair os arquivos em alguma pasta.
 
-Em seguida verifique se o python está atualizado
+Em seguida verifique se o python está atualizado:
 
       python -V
 
@@ -50,4 +50,4 @@ Caso o pygame não esteja disponível, instale-o. Para Windows, digite no powers
 
       py -m pip install -U pygame --user
 
-Após se familiarizar com o jogo, aproveite para adicionar novos níveis !!! Basta seguir as indicações no código ou seguir as orientações disponívei sna Wiki.
+Após se familiarizar com o jogo, aproveite para adicionar novos níveis !!! Basta seguir as indicações no código ou seguir as orientações disponíveis na Wiki.
