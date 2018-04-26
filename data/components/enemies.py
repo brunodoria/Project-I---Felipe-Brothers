@@ -1,19 +1,16 @@
-#
-
-
 import pygame as pg
 from .. import setup
 from .. import constants as c
 
 
 class Enemy(pg.sprite.Sprite):
-    """Base class for all enemies (Goombas, Koopas, etc.)"""
+    """Classe base para os inimigos"""
     def __init__(self):
         pg.sprite.Sprite.__init__(self)
 
 
     def setup_enemy(self, x, y, direction, name, setup_frames):
-        """Sets up various values for enemy"""
+        """Inicializa algumas variaveis"""
         self.sprite_sheet = setup.GFX['smb_enemies_sheet']
         self.frames = []
         self.frame_index = 0
@@ -34,7 +31,7 @@ class Enemy(pg.sprite.Sprite):
 
 
     def set_velocity(self):
-        """Sets velocity vector based on direction"""
+        """Velocidade de movimento"""
         if self.direction == c.LEFT:
             self.x_vel = -2
         else:
@@ -44,7 +41,7 @@ class Enemy(pg.sprite.Sprite):
 
 
     def get_image(self, x, y, width, height):
-        """Get the image frames from the sprite sheet"""
+        """Obtem as imagens das figuras maiores"""
         image = pg.Surface([width, height]).convert()
         rect = image.get_rect()
 
@@ -59,7 +56,7 @@ class Enemy(pg.sprite.Sprite):
 
 
     def handle_state(self):
-        """Enemy behavior based on state"""
+        """Estado dos inimigos"""
         if self.state == c.WALK:
             self.walking()
         elif self.state == c.FALL:
@@ -73,7 +70,7 @@ class Enemy(pg.sprite.Sprite):
 
 
     def walking(self):
-        """Default state of moving sideways"""
+        """Movimento lateral"""
         if (self.current_time - self.animate_timer) > 125:
             if self.frame_index == 0:
                 self.frame_index += 1
@@ -84,18 +81,18 @@ class Enemy(pg.sprite.Sprite):
 
 
     def falling(self):
-        """For when it falls off a ledge"""
+        """Movimento de queda"""
         if self.y_vel < 10:
             self.y_vel += self.gravity
 
 
     def jumped_on(self):
-        """Placeholder for when the enemy is stomped on"""
+        """Indica inimigo derrotado"""
         pass
 
 
     def death_jumping(self):
-        """Death animation"""
+        """Ainimacao para derrota"""
         self.rect.y += self.y_vel
         self.rect.x += self.x_vel
         self.y_vel += self.gravity
@@ -105,7 +102,7 @@ class Enemy(pg.sprite.Sprite):
 
 
     def start_death_jump(self, direction):
-        """Transitions enemy into a DEATH JUMP state"""
+        """Movimento de pulo na derrrota"""
         self.y_vel = -8
         if direction == c.RIGHT:
             self.x_vel = 2
@@ -118,12 +115,12 @@ class Enemy(pg.sprite.Sprite):
 
 
     def animation(self):
-        """Basic animation, switching between two frames"""
+        """Figura para animacao"""
         self.image = self.frames[self.frame_index]
 
 
     def update(self, game_info, *args):
-        """Updates enemy behavior"""
+        """Atualiza estado"""
         self.current_time = game_info[c.CURRENT_TIME]
         self.handle_state()
         self.animation()
@@ -131,15 +128,15 @@ class Enemy(pg.sprite.Sprite):
 
 
 
-class Goomba(Enemy):
-
-    def __init__(self, y=c.GROUND_HEIGHT, x=0, direction=c.LEFT, name='goomba'):
+class Enemy1(Enemy):
+# I's
+    def __init__(self, y=c.GROUND_HEIGHT, x=0, direction=c.LEFT, name='enemy1_'):
         Enemy.__init__(self)
         self.setup_enemy(x, y, direction, name, self.setup_frames)
 
 
     def setup_frames(self):
-        """Put the image frames in a list to be animated"""
+        """Imagens correspondentes"""
 
         self.frames.append(
             self.get_image(0, 4, 16, 16))
@@ -151,7 +148,7 @@ class Goomba(Enemy):
 
 
     def jumped_on(self):
-        """When Mario squishes him"""
+        """Inimigo pisado"""
         self.frame_index = 2
 
         if (self.current_time - self.death_timer) > 500:
@@ -159,15 +156,15 @@ class Goomba(Enemy):
 
 
 
-class Koopa(Enemy):
-
-    def __init__(self, y=c.GROUND_HEIGHT, x=0, direction=c.LEFT, name='koopa'):
+class Enemy2(Enemy):
+# D's
+    def __init__(self, y=c.GROUND_HEIGHT, x=0, direction=c.LEFT, name='enemy2_'):
         Enemy.__init__(self)
         self.setup_enemy(x, y, direction, name, self.setup_frames)
 
 
     def setup_frames(self):
-        """Sets frame list"""
+        """Imagens correspondentes"""
         self.frames.append(
             self.get_image(150, 0, 16, 24))
         self.frames.append(
@@ -178,7 +175,7 @@ class Koopa(Enemy):
 
 
     def jumped_on(self):
-        """When Mario jumps on the Koopa and puts him in his shell"""
+        """Inimigo derrotado parcialmente"""
         self.x_vel = 0
         self.frame_index = 2
         shell_y = self.rect.bottom
@@ -189,27 +186,8 @@ class Koopa(Enemy):
 
 
     def shell_sliding(self):
-        """When the koopa is sliding along the ground in his shell"""
+        """Deslize do conceito"""
         if self.direction == c.RIGHT:
             self.x_vel = 10
         elif self.direction == c.LEFT:
             self.x_vel = -10
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

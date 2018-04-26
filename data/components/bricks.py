@@ -1,5 +1,3 @@
-#
-
 import pygame as pg
 from .. import setup
 from .. import constants as c
@@ -106,7 +104,6 @@ class Brick(pg.sprite.Sprite):
         self.y_vel = -6
 
         if self.contents == '6coins':
-            setup.SFX['coin'].play()
 
             if self.coin_total > 0:
                 self.group.add(coin.Coin(self.rect.centerx, self.rect.y, score_group))
@@ -115,7 +112,6 @@ class Brick(pg.sprite.Sprite):
                     self.frame_index = 1
                     self.image = self.frames[self.frame_index]
         elif self.contents == 'star':
-            setup.SFX['powerup_appears'].play()
             self.frame_index = 1
             self.image = self.frames[self.frame_index]
 
@@ -183,15 +179,3 @@ class BrickPiece(pg.sprite.Sprite):
         """Remove from sprite groups if off screen"""
         if self.rect.y > c.SCREEN_HEIGHT:
             self.kill()
-
-
-
-
-
-
-
-
-
-
-
-

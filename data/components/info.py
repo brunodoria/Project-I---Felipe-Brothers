@@ -1,5 +1,3 @@
-#
-
 import pygame as pg
 from .. import setup
 from .. import constants as c
@@ -220,8 +218,9 @@ class OverheadInfo(object):
         top = []
         top_score = []
 
-        self.create_label(player_one_game, 'CLASSIC MODE', 272, 325)
-        self.create_label(player_two_game, 'ONLY D', 272, 365)
+        self.create_label(player_one_game, 'TEST', 272, 325)
+        self.create_label(player_two_game, 'NEXT ONES', 272, 365)
+        # adicionar botoes para os niveis
         self.create_label(top, 'TOP - ', 290, 465)
         self.create_label(top_score, '000000', 400, 465)
 

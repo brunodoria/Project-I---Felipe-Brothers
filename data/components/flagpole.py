@@ -100,10 +100,10 @@ class Pole(pg.sprite.Sprite):
         pass
 
 
-class Finial(pg.sprite.Sprite):
+class Final(pg.sprite.Sprite):
     """The top of the flag pole"""
     def __init__(self, x, y):
-        super(Finial, self).__init__()
+        super(Final, self).__init__()
         self.sprite_sheet = setup.GFX['tile_set']
         self.setup_frames()
         self.image = self.frames[0]

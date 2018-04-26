@@ -114,8 +114,8 @@ FIREBALL = 'fireball'
 
 #LIST of ENEMIES
 
-GOOMBA = 'goomba'
-KOOPA = 'koopa'
+GOOMBA = 'enemy1_'
+KOOPA = 'enemy2_'
 
 #LEVEL STATES
 
@@ -165,10 +165,10 @@ GAME_OVER = 'game over'
 LEVEL1 = 'level1'
 LEVEL2 = 'level2'
 
-#SOUND STATEZ
-NORMAL = 'normal'
-STAGE_CLEAR = 'stage clear'
-WORLD_CLEAR = 'world clear'
-TIME_WARNING = 'time warning'
-SPED_UP_NORMAL = 'sped up normal'
-MARIO_INVINCIBLE = 'mario invincible'
+# #SOUND STATEZ
+# NORMAL = 'normal'
+# STAGE_CLEAR = 'stage clear'
+# WORLD_CLEAR = 'world clear'
+# TIME_WARNING = 'time warning'
+# SPED_UP_NORMAL = 'sped up normal'
+# MARIO_INVINCIBLE = 'mario invincible'

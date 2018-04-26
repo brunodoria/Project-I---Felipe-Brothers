@@ -1,5 +1,3 @@
-#
-
 import pygame as pg
 from .. import setup, tools
 from .. import constants as c
@@ -26,7 +24,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def setup_timers(self):
-        """Sets up timers for animations"""
+        """Timer para as animacoes"""
         self.walking_timer = 0
         self.invincible_animation_timer = 0
         self.invincible_start_timer = 0
@@ -40,7 +38,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def setup_state_booleans(self):
-        """Sets up booleans that affect Mario's behavior"""
+        """Inicializa variaveis booleanas"""
         self.facing_right = True
         self.allow_jump = True
         self.dead = False
@@ -56,7 +54,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def setup_forces(self):
-        """Sets up forces that affect Mario's velocity"""
+        """Movimento inicial"""
         self.x_vel = 0
         self.y_vel = 0
         self.max_x_vel = c.MAX_WALK_SPEED
@@ -103,7 +101,7 @@ class Mario(pg.sprite.Sprite):
         self.left_fire_frames = []
 
 
-        #Images for normal small mario#
+        # figuras do mario pequeno
 
         self.right_small_normal_frames.append(
             self.get_image(178, 32, 12, 16))  # Right [0]
@@ -175,7 +173,7 @@ class Mario(pg.sprite.Sprite):
             self.get_image(130, 176, 14, 16))  # Right skid [5]
 
 
-        #Images for normal big Mario
+        # imagens para o mario normal
 
         self.right_big_normal_frames.append(
             self.get_image(176, 0, 16, 32))  # Right standing [0]
@@ -284,8 +282,7 @@ class Mario(pg.sprite.Sprite):
             self.get_image(209, 50, 16, 29))  # Frame 2 of flag pole slide [10]
 
 
-        #The left image frames are numbered the same as the right
-        #frames but are simply reversed.
+        # para movimento para esquerda basta inverter a imagem
 
         for frame in self.right_small_normal_frames:
             new_image = pg.transform.flip(frame, True, False)
@@ -384,7 +381,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def get_image(self, x, y, width, height):
-        """Extracts image from sprite sheet"""
+        """Obter imagens"""
         image = pg.Surface([width, height])
         rect = image.get_rect()
 
@@ -397,7 +394,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def update(self, keys, game_info, fire_group):
-        """Updates Mario's states and animations once per frame"""
+        """Atualizar estado para animacao"""
         self.current_time = game_info[c.CURRENT_TIME]
         self.handle_state(keys, fire_group)
         self.check_for_special_state()
@@ -405,7 +402,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def handle_state(self, keys, fire_group):
-        """Determines Mario's behavior based on his state"""
+        """comportamento do mario"""
         if self.state == c.STAND:
             self.standing(keys, fire_group)
         elif self.state == c.WALK:
@@ -436,7 +433,7 @@ class Mario(pg.sprite.Sprite):
         """This function is called if Mario is standing still"""
         self.check_to_allow_jump(keys)
         self.check_to_allow_fireball(keys)
-        
+
         self.frame_index = 0
         self.x_vel = 0
         self.y_vel = 0
@@ -458,10 +455,6 @@ class Mario(pg.sprite.Sprite):
             self.state = c.WALK
         elif keys[tools.keybinding['jump']]:
             if self.allow_jump:
-                if self.big:
-                    setup.SFX['big_jump'].play()
-                else:
-                    setup.SFX['small_jump'].play()
                 self.state = c.JUMP
                 self.y_vel = c.JUMP_VEL
         else:
@@ -472,7 +465,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def get_out_of_crouch(self):
-        """Get out of crouch"""
+        """Agachamento"""
         bottom = self.rect.bottom
         left = self.rect.x
         if self.facing_right:
@@ -486,7 +479,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def check_to_allow_jump(self, keys):
-        """Check to allow Mario to jump"""
+        """Verificacao de salto"""
         if not keys[tools.keybinding['jump']]:
             self.allow_jump = True
 
@@ -499,7 +492,6 @@ class Mario(pg.sprite.Sprite):
 
     def shoot_fireball(self, powerup_group):
         """Shoots fireball, allowing no more than two to exist at once"""
-        setup.SFX['fireball'].play()
         self.fireball_count = self.count_number_of_fireballs(powerup_group)
 
         if (self.current_time - self.last_fireball_time) > 200:
@@ -528,9 +520,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def walking(self, keys, fire_group):
-        """This function is called when Mario is in a walking state
-        It changes the frame, checks for holding down the run button,
-        checks for a jump, then adjusts the state if necessary"""
+        """Estado de movimento para o mario"""
 
         self.check_to_allow_jump(keys)
         self.check_to_allow_fireball(keys)
@@ -559,10 +549,6 @@ class Mario(pg.sprite.Sprite):
 
         if keys[tools.keybinding['jump']]:
             if self.allow_jump:
-                if self.big:
-                    setup.SFX['big_jump'].play()
-                else:
-                    setup.SFX['small_jump'].play()
                 self.state = c.JUMP
                 if self.x_vel > 4.5 or self.x_vel < -4.5:
                     self.y_vel = c.JUMP_VEL - .5
@@ -618,8 +604,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def calculate_animation_speed(self):
-        """Used to make walking animation speed be in relation to
-        Mario's x-vel"""
+        """Ajuste do moviemnto da tela"""
         if self.x_vel == 0:
             animation_speed = 130
         elif self.x_vel > 0:
@@ -631,7 +616,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def jumping(self, keys, fire_group):
-        """Called when Mario is in a JUMP state."""
+        """Movimento de salto do mario"""
         self.allow_jump = False
         self.frame_index = 4
         self.gravity = c.JUMP_GRAVITY
@@ -660,7 +645,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def falling(self, keys, fire_group):
-        """Called when Mario is in a FALL state"""
+        """Movimento de queda do mario"""
         self.check_to_allow_fireball(keys)
         if self.y_vel < c.MAX_Y_VEL:
             self.y_vel += self.gravity
@@ -679,7 +664,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def jumping_to_death(self):
-        """Called when Mario is in a DEATH_JUMP state"""
+        """Mario cai em buraco"""
         if self.death_timer == 0:
             self.death_timer = self.current_time
         elif (self.current_time - self.death_timer) > 500:
@@ -688,7 +673,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def start_death_jump(self, game_info):
-        """Used to put Mario in a DEATH_JUMP state"""
+        """Pulo final de ao morrer"""
         self.dead = True
         game_info[c.MARIO_DEAD] = True
         self.y_vel = -11
@@ -700,8 +685,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def changing_to_big(self):
-        """Changes Mario's image attribute based on time while
-        transitioning to big"""
+        """Mudanca de tamanho do mario"""
         self.in_transition_state = True
 
         if self.transition_timer == 0:
@@ -735,16 +719,14 @@ class Mario(pg.sprite.Sprite):
 
 
     def timer_between_these_two_times(self,start_time, end_time):
-        """Checks if the timer is at the right time for the action. Reduces
-        the ugly code."""
+        """Timer adicional"""
         if (self.current_time - self.transition_timer) >= start_time\
             and (self.current_time - self.transition_timer) < end_time:
             return True
 
 
     def set_mario_to_middle_image(self):
-        """During a change from small to big, sets mario's image to the
-        transition/middle size"""
+        """Transicao de tamanho do mario"""
         if self.facing_right:
             self.image = self.normal_small_frames[0][7]
         else:
@@ -757,7 +739,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def set_mario_to_small_image(self):
-        """During a change from small to big, sets mario's image to small"""
+        """Mrio diminui de tamanho"""
         if self.facing_right:
             self.image = self.normal_small_frames[0][0]
         else:
@@ -770,7 +752,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def set_mario_to_big_image(self):
-        """During a change from small to big, sets mario's image to big"""
+        """TRansicao de tamanho"""
         if self.facing_right:
             self.image = self.normal_big_frames[0][0]
         else:
@@ -783,6 +765,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def become_big(self):
+        """Mario aumenta de tamanho"""
         self.big = True
         self.right_frames = self.right_big_normal_frames
         self.left_frames = self.left_big_normal_frames
@@ -849,8 +832,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def changing_to_small(self):
-        """Mario's state and animation when he shrinks from big to small
-        after colliding with an enemy"""
+        """Diminui o tamanho ao colidir com inimigo"""
         self.in_transition_state = True
         self.hurt_invincible = True
         self.state = c.BIG_TO_SMALL
@@ -920,8 +902,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def adjust_rect(self):
-        """Makes sure new Rect has the same bottom and left
-        location as previous Rect"""
+        """Ajuste de tamanhos"""
         x = self.rect.x
         bottom = self.rect.bottom
         self.rect = self.image.get_rect()
@@ -942,7 +923,7 @@ class Mario(pg.sprite.Sprite):
 
 
     def flag_pole_sliding(self):
-        """State where Mario is sliding down the flag pole"""
+        """Deslize do mastro"""
         self.state = c.FLAGPOLE
         self.in_transition_state = True
         self.x_vel = 0
@@ -1129,14 +1110,3 @@ class Mario(pg.sprite.Sprite):
             self.image = self.right_frames[self.frame_index]
         else:
             self.image = self.left_frames[self.frame_index]
-
-
-
-
-
-
-
-
-
-
-

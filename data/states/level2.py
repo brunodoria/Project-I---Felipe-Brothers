@@ -1,10 +1,10 @@
-from __future__ import division
+# criar arquivo analogo para adicionar novo nivel
 
+from __future__ import division
 
 import pygame as pg
 from .. import setup, tools
 from .. import constants as c
-from .. import game_sound
 from .. components import mario
 from .. components import collider
 from .. components import bricks
@@ -17,14 +17,13 @@ from .. components import score
 from .. components import castle_flag
 
 
-
 class Level2(tools._State):
 
     def __init__(self):
         tools._State.__init__(self)
 
     def startup(self, current_time, persist):
-        """Called when the State object is created"""
+        """Inicializacao de variaveis e de componentes do nivel"""
         self.game_info = persist
         self.persist = self.game_info
         self.game_info[c.CURRENT_TIME] = current_time
@@ -39,8 +38,9 @@ class Level2(tools._State):
 
         self.moving_score_list = []
         self.overhead_info_display = info.OverheadInfo(self.game_info, c.LEVEL)
-        self.sound_manager = game_sound.Sound(self.overhead_info_display)
+        #self.sound_manager = game_sound.Sound(self.overhead_info_display)
 
+        # chamada de funcoes para inicializar o percurso do nivel
         self.setup_background()
         self.setup_ground()
         self.setup_pipes()
@@ -55,8 +55,7 @@ class Level2(tools._State):
 
 
     def setup_background(self):
-        """Sets the background image, rect and scales it to the correct
-        proportions"""
+        """Background do nivel"""
 
         self.background = setup.GFX['level_2']
         self.back_rect = self.background.get_rect()
@@ -74,15 +73,12 @@ class Level2(tools._State):
 
 
     def setup_ground(self):
-        """Creates collideable, invisible rectangles over top of the ground for
-        sprites to walk on"""
-
+        """Estabelece o 'chao' do nivel"""
         ground_rect1 = collider.Collider(0, c.GROUND_HEIGHT, 953, 60)
         ground_rect2 = collider.Collider(1048, c.GROUND_HEIGHT, 2953, 60)
         ground_rect3 = collider.Collider(3048, c.GROUND_HEIGHT,  635, 60)
         ground_rect4 = collider.Collider(3819, c.GROUND_HEIGHT, 2735, 60)
         ground_rect5 = collider.Collider(6647, c.GROUND_HEIGHT, 2300, 60)
-
 
         self.ground_group = pg.sprite.Group(ground_rect1,
                                             ground_rect2,
@@ -91,10 +87,8 @@ class Level2(tools._State):
 					                        ground_rect5)
 
 
-
     def setup_pipes(self):
-        """Create collideable rects for all the pipes"""
-
+        """Estabelece paredes dos obstaculos"""
         pipe1 = collider.Collider(1202, 452, 83, 82)
         pipe2 = collider.Collider(1631, 409, 83, 140)
         pipe3 = collider.Collider(1973, 366, 83, 170)
@@ -108,7 +102,7 @@ class Level2(tools._State):
 
 
     def setup_steps(self):
-        """Create collideable rects for all the steps"""
+        """Colisao para os degraus"""
         step1 = collider.Collider(5745, 495, 40, 44)
         step2 = collider.Collider(5788, 452, 40, 44)
         step3 = collider.Collider(5831, 409, 40, 44)
@@ -160,10 +154,13 @@ class Level2(tools._State):
 
 
     def setup_bricks(self):
-        """Creates all the breakable bricks for the level.  Coin and
-        powerup groups are created so they can be passed to bricks."""
+        """Cria os blocos para o nivel"""
+
+        #inicializa moedinha
         self.coin_group = pg.sprite.Group()
+        #inicializa powerup
         self.powerup_group = pg.sprite.Group()
+        #quebra do bloco
         self.brick_pieces_group = pg.sprite.Group()
 
         brick1  = bricks.Brick(858,  365)
@@ -219,8 +216,7 @@ class Level2(tools._State):
 
 
     def setup_coin_boxes(self):
-        """Creates all the coin boxes and puts them in a sprite group"""
-
+        """Definir as caixinhas com moedas"""
         coin_box1  = coin_box.Coin_box(685, 365, c.MUSHROOM, self.powerup_group)
         coin_box2  = coin_box.Coin_box(901, 365, c.MUSHROOM, self.powerup_group)
         coin_box3  = coin_box.Coin_box(987, 365, c.COIN, self.coin_group)
@@ -235,6 +231,7 @@ class Level2(tools._State):
         coin_box11 = coin_box.Coin_box(5531, 193, c.COIN, self.coin_group)
         coin_box12 = coin_box.Coin_box(7288, 365, c.COIN, self.coin_group)
 
+        #grupo de caixinhas com moedas
         self.coin_box_group = pg.sprite.Group(coin_box1,  coin_box2,
                                               coin_box3,  coin_box4,
                                               coin_box5,  coin_box6,
@@ -244,9 +241,10 @@ class Level2(tools._State):
 
 
     def setup_flag_pole(self):
-        """Creates the flag pole at the end of the level"""
+        """Mastro com bandeira no fim do nível"""
         self.flag = flagpole.Flag(8505, 100)
 
+        # descida da bandeira
         pole0 = flagpole.Pole(8505, 97)
         pole1 = flagpole.Pole(8505, 137)
         pole2 = flagpole.Pole(8505, 177)
@@ -258,10 +256,10 @@ class Level2(tools._State):
         pole8 = flagpole.Pole(8505, 417)
         pole9 = flagpole.Pole(8505, 450)
 
-        finial = flagpole.Finial(8507, 97)
+        final = flagpole.Final(8507, 97)
 
         self.flag_pole_group = pg.sprite.Group(self.flag,
-                                               finial,
+                                               final,
                                                pole0,
                                                pole1,
                                                pole2,
@@ -275,36 +273,36 @@ class Level2(tools._State):
 
 
     def setup_enemies(self):
-        """Creates all the enemies and stores them in a list of lists."""
-        goomba0 = enemies.Goomba()
-        goomba1 = enemies.Goomba()
-        goomba2 = enemies.Goomba()
-        goomba3 = enemies.Goomba()
-        goomba4 = enemies.Goomba(193)
-        goomba5 = enemies.Goomba(193)
-        goomba6 = enemies.Goomba()
-        goomba7 = enemies.Goomba()
-        goomba8 = enemies.Goomba()
-        goomba9 = enemies.Goomba()
-        goomba10 = enemies.Goomba()
-        goomba11 = enemies.Goomba()
-        goomba12 = enemies.Goomba()
-        goomba13 = enemies.Goomba()
-        goomba14 = enemies.Goomba()
-        goomba15 = enemies.Goomba()
+        """Inimigos do nivel"""
+        enemy1_0 = enemies.Enemy1()
+        enemy1_1 = enemies.Enemy1()
+        enemy1_2 = enemies.Enemy1()
+        enemy1_3 = enemies.Enemy1()
+        enemy1_4 = enemies.Enemy1(193)
+        enemy1_5 = enemies.Enemy1(193)
+        enemy1_6 = enemies.Enemy1()
+        enemy1_7 = enemies.Enemy1()
+        enemy1_8 = enemies.Enemy1()
+        enemy1_9 = enemies.Enemy1()
+        enemy1_10 = enemies.Enemy1()
+        enemy1_11 = enemies.Enemy1()
+        enemy1_12 = enemies.Enemy1()
+        enemy1_13 = enemies.Enemy1()
+        enemy1_14 = enemies.Enemy1()
+        enemy1_15 = enemies.Enemy1()
 
-        koopa0 = enemies.Koopa()
+        enemy2_0 = enemies.Enemy2()
 
-        enemy_group1 = pg.sprite.Group(goomba0)
-        enemy_group2 = pg.sprite.Group(goomba1)
-        enemy_group3 = pg.sprite.Group(goomba2, goomba3)
-        enemy_group4 = pg.sprite.Group(goomba4, goomba5)
-        enemy_group5 = pg.sprite.Group(goomba6, goomba7)
-        enemy_group6 = pg.sprite.Group(koopa0)
-        enemy_group7 = pg.sprite.Group(goomba8, goomba9)
-        enemy_group8 = pg.sprite.Group(goomba10, goomba11)
-        enemy_group9 = pg.sprite.Group(goomba12, goomba13)
-        enemy_group10 = pg.sprite.Group(goomba14, goomba15)
+        enemy_group1 = pg.sprite.Group(enemy1_0)
+        enemy_group2 = pg.sprite.Group(enemy1_1)
+        enemy_group3 = pg.sprite.Group(enemy1_2, enemy1_3)
+        enemy_group4 = pg.sprite.Group(enemy1_4, enemy1_5)
+        enemy_group5 = pg.sprite.Group(enemy1_6, enemy1_7)
+        enemy_group6 = pg.sprite.Group(enemy2_0)
+        enemy_group7 = pg.sprite.Group(enemy1_8, enemy1_9)
+        enemy_group8 = pg.sprite.Group(enemy1_10, enemy1_11)
+        enemy_group9 = pg.sprite.Group(enemy1_12, enemy1_13)
+        enemy_group10 = pg.sprite.Group(enemy1_14, enemy1_15)
 
         self.enemy_group_list = [enemy_group1,
                                  enemy_group2,
@@ -319,7 +317,7 @@ class Level2(tools._State):
 
 
     def setup_mario(self):
-        """Places Mario at the beginning of the level"""
+        """Posicao inicial do mario"""
         self.mario = mario.Mario()
         self.mario.rect.x = self.viewport.x + 110
         self.mario.rect.bottom = c.GROUND_HEIGHT
@@ -369,7 +367,7 @@ class Level2(tools._State):
         self.handle_states(keys)
         self.check_if_time_out()
         self.blit_everything(surface)
-        self.sound_manager.update(self.game_info, self.mario)
+        #self.sound_manager.update(self.game_info, self.mario)
 
 
 
@@ -551,7 +549,6 @@ class Level2(tools._State):
 
         elif enemy:
             if self.mario.invincible:
-                setup.SFX['kick'].play()
                 self.game_info[c.SCORE] += 100
                 self.moving_score_list.append(
                     score.Score(self.mario.rect.right - self.viewport.x,
@@ -560,7 +557,6 @@ class Level2(tools._State):
                 enemy.start_death_jump(c.RIGHT)
                 self.sprites_about_to_die_group.add(enemy)
             elif self.mario.big:
-                setup.SFX['pipe'].play()
                 self.mario.fire = False
                 self.mario.y_vel = -1
                 self.mario.state = c.BIG_TO_SMALL
@@ -584,7 +580,6 @@ class Level2(tools._State):
                 self.mario.invincible = True
                 self.mario.invincible_start_timer = self.current_time
             elif powerup.name == c.MUSHROOM:
-                setup.SFX['powerup'].play()
                 self.game_info[c.SCORE] += 1000
                 self.moving_score_list.append(
                     score.Score(self.mario.rect.centerx - self.viewport.x,
@@ -601,9 +596,7 @@ class Level2(tools._State):
                                 c.ONEUP))
 
                 self.game_info[c.LIVES] += 1
-                setup.SFX['one_up'].play()
             elif powerup.name == c.FIREFLOWER:
-                setup.SFX['powerup'].play()
                 self.game_info[c.SCORE] += 1000
                 self.moving_score_list.append(
                     score.Score(self.mario.rect.centerx - self.viewport.x,
@@ -714,7 +707,6 @@ class Level2(tools._State):
 
         elif enemy:
             if self.mario.invincible:
-                setup.SFX['kick'].play()
                 enemy.kill()
                 self.sprites_about_to_die_group.add(enemy)
                 enemy.start_death_jump(c.RIGHT)
@@ -726,7 +718,6 @@ class Level2(tools._State):
 
         elif powerup:
             if powerup.name == c.STAR:
-                setup.SFX['powerup'].play()
                 powerup.kill()
                 self.mario.invincible = True
                 self.mario.invincible_start_timer = self.current_time
@@ -766,7 +757,7 @@ class Level2(tools._State):
 
             elif coin_box.state == c.OPENED:
                 pass
-            setup.SFX['bump'].play()
+
             self.mario.y_vel = 7
             self.mario.rect.y = coin_box.rect.bottom
             self.mario.state = c.FALL
@@ -781,7 +772,6 @@ class Level2(tools._State):
         if self.mario.rect.y > brick.rect.y:
             if brick.state == c.RESTING:
                 if self.mario.big and brick.contents is None:
-                    setup.SFX['brick_smash'].play()
                     self.check_if_enemy_on_brick(brick)
                     brick.kill()
                     self.brick_pieces_group.add(
@@ -797,15 +787,13 @@ class Level2(tools._State):
                         bricks.BrickPiece(brick.rect.right,
                                                brick.rect.y,
                                                2, -6))
-                else:
-                    setup.SFX['bump'].play()
+
                     if brick.coin_total > 0:
                         self.game_info[c.COIN_TOTAL] += 1
                         self.game_info[c.SCORE] += 200
                     self.check_if_enemy_on_brick(brick)
                     brick.start_bump(self.moving_score_list)
-            elif brick.state == c.OPENED:
-                setup.SFX['bump'].play()
+
             self.mario.y_vel = 7
             self.mario.rect.y = brick.rect.bottom
             self.mario.state = c.FALL
@@ -823,7 +811,6 @@ class Level2(tools._State):
         enemy = pg.sprite.spritecollideany(brick, self.enemy_group)
 
         if enemy:
-            setup.SFX['kick'].play()
             self.game_info[c.SCORE] += 100
             self.moving_score_list.append(
                 score.Score(enemy.rect.centerx - self.viewport.x,
@@ -884,7 +871,6 @@ class Level2(tools._State):
     def adjust_mario_for_y_enemy_collisions(self, enemy):
         """Mario collisions with all enemies on the y-axis"""
         if self.mario.y_vel > 0:
-            setup.SFX['stomp'].play()
             self.game_info[c.SCORE] += 100
             self.moving_score_list.append(
                 score.Score(enemy.rect.centerx - self.viewport.x,
@@ -904,14 +890,13 @@ class Level2(tools._State):
 
 
     def adjust_mario_for_y_shell_collisions(self, shell):
-        """Mario collisions with Koopas in their shells on the y axis"""
+        """Mario collisions with Enemy2s in their shells on the y axis"""
         if self.mario.y_vel > 0:
             self.game_info[c.SCORE] += 400
             self.moving_score_list.append(
                 score.Score(self.mario.rect.centerx - self.viewport.x,
                             self.mario.rect.y, 400))
             if shell.state == c.JUMPED_ON:
-                setup.SFX['kick'].play()
                 shell.state = c.SHELL_SLIDE
                 if self.mario.rect.centerx < shell.rect.centerx:
                     shell.direction = c.RIGHT
@@ -1042,7 +1027,7 @@ class Level2(tools._State):
 
 
     def adjust_shell_position(self):
-        """Moves any koopa in a shell along the x, y axes and checks for
+        """Moves any enemy2_ in a shell along the x, y axes and checks for
         collisions"""
         for shell in self.shell_group:
             shell.rect.x += shell.x_vel
@@ -1059,7 +1044,6 @@ class Level2(tools._State):
         enemy = pg.sprite.spritecollideany(shell, self.enemy_group)
 
         if collider:
-            setup.SFX['bump'].play()
             if shell.x_vel > 0:
                 shell.direction = c.LEFT
                 shell.rect.right = collider.rect.left
@@ -1068,7 +1052,6 @@ class Level2(tools._State):
                 shell.rect.left = collider.rect.right
 
         if enemy:
-            setup.SFX['kick'].play()
             self.game_info[c.SCORE] += 100
             self.moving_score_list.append(
                 score.Score(enemy.rect.right - self.viewport.x,
@@ -1275,7 +1258,6 @@ class Level2(tools._State):
 
     def fireball_kill(self, fireball, enemy):
         """Kills enemy if hit with fireball"""
-        setup.SFX['kick'].play()
         self.game_info[c.SCORE] += 100
         self.moving_score_list.append(
             score.Score(enemy.rect.centerx - self.viewport.x,
@@ -1418,7 +1400,7 @@ class Level2(tools._State):
         elif (self.current_time - self.flag_timer) > 2000:
             self.set_game_info_values()
             self.next = c.GAME_OVER
-            self.sound_manager.stop_music()
+            #self.sound_manager.stop_music()
             self.done = True
 
 

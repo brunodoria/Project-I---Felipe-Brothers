@@ -1,5 +1,3 @@
-#
-
 import pygame as pg
 from .. import constants as c
 from .. import setup
@@ -349,13 +347,3 @@ class FireBall(pg.sprite.Sprite):
         if (self.rect.x > viewport.right) or (self.rect.y > viewport.bottom) \
             or (self.rect.right < viewport.x):
             self.kill()
-
-
-
-
-
-
-
-
-
-

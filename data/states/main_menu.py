@@ -1,5 +1,3 @@
-#
-
 import pygame as pg
 from .. import setup, tools
 from .. import constants as c
@@ -8,7 +6,7 @@ from .. components import info, mario
 
 class Menu(tools._State):
     def __init__(self):
-        """Initializes the state"""
+        """Inicializa variaveis"""
         tools._State.__init__(self)
         persist = {c.COIN_TOTAL: 0,
                    c.SCORE: 0,
@@ -21,8 +19,7 @@ class Menu(tools._State):
         self.startup(0.0, persist)
 
     def startup(self, current_time, persist):
-        """Called every time the game's state becomes this one.  Initializes
-        certain values"""
+        """Inicializa a tela de menu"""
         self.next = c.LOAD_SCREEN
         self.persist = persist
         self.game_info = persist
@@ -35,7 +32,7 @@ class Menu(tools._State):
 
 
     def setup_cursor(self):
-        """Creates the mushroom cursor to select 1 or 2 player game"""
+        """Cria a imagem do cursor"""
         self.cursor = pg.sprite.Sprite()
         dest = (220, 358)
         self.cursor.image, self.cursor.rect = self.get_image(
@@ -44,14 +41,14 @@ class Menu(tools._State):
 
 
     def setup_mario(self):
-        """Places Mario at the beginning of the level"""
+        """Imagem do Mario na tela"""
         self.mario = mario.Mario()
         self.mario.rect.x = 110
         self.mario.rect.bottom = c.GROUND_HEIGHT
 
 
     def setup_background(self):
-        """Setup the background image to blit"""
+        """Imagem do background"""
         self.background = setup.GFX['level_1']
         self.background_rect = self.background.get_rect()
         self.background = pg.transform.scale(self.background,
@@ -66,7 +63,7 @@ class Menu(tools._State):
 
 
     def get_image(self, x, y, width, height, dest, sprite_sheet):
-        """Returns images and rects to blit onto the screen"""
+        """Imagens"""
         image = pg.Surface([width, height])
         rect = image.get_rect()
 
@@ -89,7 +86,7 @@ class Menu(tools._State):
 
 
     def update(self, surface, keys, current_time):
-        """Updates the state every refresh"""
+        """Atualizacao das imagens"""
         self.current_time = current_time
         self.game_info[c.CURRENT_TIME] = self.current_time
         self.update_cursor(keys)
@@ -104,7 +101,7 @@ class Menu(tools._State):
 
 
     def update_cursor(self, keys):
-        """Update the position of the cursor"""
+        """Selecao do nivel/mapa"""
         input_list = [pg.K_RETURN, pg.K_a, pg.K_s]
 
         if self.cursor.state == c.PLAYER1:
@@ -125,10 +122,10 @@ class Menu(tools._State):
                     self.reset_game_info()
                     self.level = 2
                     self.done = True
-
+        # adicionar elif para proximos niveis
 
     def reset_game_info(self):
-        """Resets the game info in case of a Game Over and restart"""
+        """Reinicializa variaveis no caso de reinicio"""
         self.game_info[c.COIN_TOTAL] = 0
         self.game_info[c.SCORE] = 0
         self.game_info[c.LIVES] = 5
