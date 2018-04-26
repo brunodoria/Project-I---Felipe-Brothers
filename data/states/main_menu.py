@@ -49,7 +49,7 @@ class Menu(tools._State):
 
     def setup_background(self):
         """Imagem do background"""
-        self.background = setup.GFX['level_1']
+        self.background = setup.GFX['level_2']
         self.background_rect = self.background.get_rect()
         self.background = pg.transform.scale(self.background,
                                    (int(self.background_rect.width*c.BACKGROUND_MULTIPLER),
