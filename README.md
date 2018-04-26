@@ -42,7 +42,7 @@ Caso a execução seja normal, basta executar:
 
 Em seguida:
 
-      python mario_level_1.py
+      python mario_level_test.py
 
 O jogo deve abrir e estar disponivel para uma partida.
 
