@@ -1,5 +1,3 @@
-#
-
 import pygame as pg
 from .. import constants as c
 
@@ -14,4 +12,3 @@ class Collider(pg.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.state = None
-
